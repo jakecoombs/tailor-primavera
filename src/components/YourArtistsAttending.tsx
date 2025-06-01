@@ -1,7 +1,7 @@
 // Show list of followed artists attending Primavera Sound festival
 
 import React from "react";
-import { fetchAttendingArtists } from "../utils/spotify";
+import { fetchAttendingArtists } from "../lib/spotify";
 
 
 const YourAttendingArtists = () => {

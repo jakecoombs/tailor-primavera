@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { getAccessToken } from "../utils/spotify";
+import { getAccessToken } from "../lib/spotify";
 
 function Layout() {
     const token = getAccessToken();

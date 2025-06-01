@@ -1,8 +1,8 @@
 import React from "react";
-import { fetchFollowedArtists } from "../lib/spotify";
+import { fetchLikedSongsByAttendees } from "../lib/spotify";
 
 
-const FollowedArtists = () => {
+const LikedSongsAttending = () => {
     const [isLoading, setIsLoading] = React.useState(true);
     const [data, setData] = React.useState<any>([]);
     
@@ -10,7 +10,7 @@ const FollowedArtists = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchFollowedArtists();
+                const data = await fetchLikedSongsByAttendees();
                 setData(data);
             } catch (error) {
                 console.error(error);
@@ -27,18 +27,18 @@ const FollowedArtists = () => {
     }
     
     if (data.length === 0) {
-        return <div>No followed artists found.</div>; 
+        return <div>No liked songs by Artists @ Primavera.</div>; 
     }
     
   return (
     <div>
-      <h2>Followed Artists({data.length})</h2>
+      <h2>Liked Songs by Attendees({data.length})</h2>
         <ul>
-            {data.map((artist: any) => (
-            <li key={artist.id}>
-                <img src={artist.images[0]?.url} alt={artist.name} width="50" />
-                <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                {artist.name}
+            {data.map((track: any) => (
+            <li key={track.id}>
+                <img src={track.album.images[0]?.url} alt={track.name} width="50" />
+                <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                {track.name}
                 </a>
             </li>
             ))}
@@ -46,4 +46,4 @@ const FollowedArtists = () => {
     </div>
   );
 }
-export default FollowedArtists;
+export default LikedSongsAttending;

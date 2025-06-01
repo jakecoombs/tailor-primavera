@@ -11,7 +11,7 @@ export async function redirectToSpotifyLogin() {
   const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID!;
   const redirect_uri = process.env.REACT_APP_REDIRECT_URI!;
   const state = generateRandomString(16);
-  const scope = 'user-read-private user-read-email user-follow-read user-library-read';
+  const scope = 'user-read-private user-read-email user-follow-read user-library-read playlist-modify-public playlist-modify-private';
 
   const params = new URLSearchParams({
     response_type: 'code',
