@@ -5,7 +5,7 @@ function Layout() {
     const token = getAccessToken();
     return (
       <>
-        <header>
+        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px", backgroundColor: "#282c34", color: "white" }}>
         Sastre de Primavera (Tailor of Primavera)
         <nav>
             {token ? (
