@@ -22,8 +22,9 @@ function Home() {
   return (
     <>
       <h1>
-      Tailor your Primavera Experience with Spotify
+        Tailor your Primavera Experience with Spotify
       </h1>
+      <h2>Liked Songs by Artists Attending Primavera</h2>
       <LikedSongsAttending />
       {/* <YourAttendingArtists />
       <FollowedArtists /> */}

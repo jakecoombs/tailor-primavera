@@ -15,7 +15,7 @@ function Layout() {
             )}
         </nav>
         </header>
-        <main>
+        <main style={{ padding: "20px" }}>
           <Outlet />
         </main>
       </>

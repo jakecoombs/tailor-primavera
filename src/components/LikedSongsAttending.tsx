@@ -1,14 +1,19 @@
 import React from "react";
 import { fetchLikedSongsByAttendees } from "../lib/spotify";
 import ExportSongsButton from "./ExportSongsButton";
+import TrackList from "./TrackList";
 
 
 const LikedSongsAttending = () => {
-    const [isLoading, setIsLoading] = React.useState(true);
+    const [active, setIsActive] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
     const [data, setData] = React.useState<any>([]);
-    
 
     React.useEffect(() => {
+        if (!active) {
+            return;
+        }
+        setIsLoading(true);
         const fetchData = async () => {
             try {
                 const data = await fetchLikedSongsByAttendees();
@@ -21,7 +26,11 @@ const LikedSongsAttending = () => {
         };
 
         fetchData();
-    }, []);
+    }, [active]);
+
+    if (!active) {
+        return <button onClick={() => setIsActive(true)}>Load liked songs</button>
+    }
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -34,19 +43,10 @@ const LikedSongsAttending = () => {
   return (
     <div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <h2>Liked Songs by Attendees({data.length})</h2>
+            <h3>Your Liked Songs by Attendees ({data.length})</h3>
             <ExportSongsButton songs={data} />
         </div>
-        <ul>
-            {data.map((track: any) => (
-            <li key={track.id}>
-                <img src={track.album.images[0]?.url} alt={track.name} width="50" />
-                <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                {track.name}
-                </a>
-            </li>
-            ))}
-        </ul>   
+        <TrackList tracks={data} />  
     </div>
   );
 }
