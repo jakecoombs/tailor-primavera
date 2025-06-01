@@ -1,5 +1,6 @@
 import React from "react";
 import { fetchLikedSongsByAttendees } from "../lib/spotify";
+import ExportSongsButton from "./ExportSongsButton";
 
 
 const LikedSongsAttending = () => {
@@ -32,7 +33,10 @@ const LikedSongsAttending = () => {
     
   return (
     <div>
-      <h2>Liked Songs by Attendees({data.length})</h2>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h2>Liked Songs by Attendees({data.length})</h2>
+            <ExportSongsButton songs={data} />
+        </div>
         <ul>
             {data.map((track: any) => (
             <li key={track.id}>

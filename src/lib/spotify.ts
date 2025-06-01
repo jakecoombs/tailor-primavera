@@ -83,3 +83,72 @@ export async function fetchLikedSongsByAttendees() {
   }
   return likedSongsByAttendees;
 }
+
+export async function exportLikedSongsToPlaylist(likedSongs: any[]): Promise<string> {
+  if (!likedSongs || likedSongs.length === 0) {
+    throw new Error('No liked songs to export');
+  }
+  const accessToken = getAccessToken();
+  if (!accessToken) {
+    throw new Error('Access token is not available');
+  }
+  const headers = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    }
+  }
+  // Get the user ID
+  const userResponse = await fetch(`${SPOTIFY_API_BASE_URL}/me`, headers);
+  if (!userResponse.ok) {
+    throw new Error('Failed to fetch user data');
+  }
+  const userData = await userResponse.json();
+  const userId = userData.id;
+
+  // Create a playlist
+  const createPlaylistResponse = await fetch(`${SPOTIFY_API_BASE_URL}/users/${userId}/playlists`, {
+    method: 'POST',
+    headers: {
+      ...headers.headers,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: 'Your Liked Songs of Primavera 2025',
+      description: 'A playlist of your liked songs by artists attending Primavera Sound festival 2025',
+      public: false,
+    }),
+  });
+  if (!createPlaylistResponse.ok) {
+    throw new Error('Failed to create playlist');
+  }
+  const playlistData = await createPlaylistResponse.json();
+  const playlistId = playlistData.id;
+  const playlistUrl = playlistData.external_urls.spotify;
+
+  // Add songs to playlist
+  const trackUris = likedSongs.map((track: any) => track.uri);
+  if (trackUris.length > 0) {
+    // Spotify API allows adding up to 100 tracks at a time
+    const chunkSize = 100;
+    for (let i = 0; i < trackUris.length; i += chunkSize) {
+      const chunk = trackUris.slice(i, i + chunkSize);
+
+      const addTracksResponse = await fetch(`${SPOTIFY_API_BASE_URL}/playlists/${playlistId}/tracks`, {
+        method: 'POST',
+        headers: {
+          ...headers.headers,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uris: chunk,
+        }),
+      });
+      if (!addTracksResponse.ok) {
+        throw new Error('Failed to add tracks to playlist');
+      }
+    }
+  }
+ 
+  // Return the playlist URL
+  return playlistUrl;
+}
