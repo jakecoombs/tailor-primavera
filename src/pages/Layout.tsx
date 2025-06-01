@@ -3,18 +3,18 @@ import { getAccessToken } from "../lib/spotify";
 import { redirectToSpotifyLogin } from "../auth/spotifyAuth";
 
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
-    return (
-        <a
-            href={to}
-            style={{
-                margin: "0 10px",
-                color: "white",
-                textDecoration: "none",
-            }}
-        >
-            {children}
-        </a>
-    );
+  return (
+    <a
+      href={to}
+      style={{
+        margin: "0 10px",
+        color: "white",
+        textDecoration: "none",
+      }}
+    >
+      {children}
+    </a>
+  );
 }
 
 function Navigation() {
@@ -28,9 +28,9 @@ function Navigation() {
   }
   return (
     <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/your-artists">Your Artists</NavLink>
-        <NavLink to="/lineup">Lineup</NavLink>
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/your-artists">Your Artists</NavLink>
+      <NavLink to="/lineup">Lineup</NavLink>
       <button
         onClick={() => {
           localStorage.clear();
@@ -44,9 +44,16 @@ function Navigation() {
 }
 
 function Layout() {
-    if (!getAccessToken()) {
-        window.location.href = "/";
+  if (!getAccessToken()) {
+    if (
+      !(["/", "/callback"].includes(
+        window.location.pathname
+      ))
+    ) {
+      window.location.href = "/";
     }
+  }
+  
   return (
     <>
       <header

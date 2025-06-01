@@ -2,7 +2,7 @@
 
 import React from "react";
 import { fetchAttendingArtists } from "../lib/spotify";
-import ArtistsList from "./ArtistList";
+import ArtistList from "./ArtistList";
 
 
 const YourAttendingArtists = () => {
@@ -34,7 +34,7 @@ const YourAttendingArtists = () => {
     }
     
   return (
-        <ArtistsList artists={data} />
+        <ArtistList artists={data} />
   );
 }
 export default YourAttendingArtists;

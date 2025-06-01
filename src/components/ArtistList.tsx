@@ -1,4 +1,11 @@
-const ArtistsList = ({ artists }: { artists: any }) => {
+interface Artist {
+  id: string;
+  name: string;
+  images: { url: string }[];
+  external_urls: { spotify: string };
+}
+
+const ArtistList = ({ artists }: { artists: Artist[] }) => {
   return (
     <ul style={{ listStyleType: "none", padding: 0 }}>
       {artists.map((artist: any) => (
@@ -35,4 +42,4 @@ const ArtistsList = ({ artists }: { artists: any }) => {
   );
 };
 
-export default ArtistsList;
+export default ArtistList;
