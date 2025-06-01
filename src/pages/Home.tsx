@@ -1,6 +1,7 @@
 import React from 'react';
 import { redirectToSpotifyLogin } from '../auth/spotifyAuth';
 import FollowedArtists from '../components/FollowedArtists';
+import YourAttendingArtists from '../components/YourArtistsAttending';
 
 function isLoggedIn() {
   const accessToken = localStorage.getItem("spotifyAccessToken");
@@ -25,6 +26,7 @@ function Home() {
       <h1>
       Tailor your Primavera Experience with Spotify
       </h1>
+      <YourAttendingArtists />
       <FollowedArtists />
     </>
   );
