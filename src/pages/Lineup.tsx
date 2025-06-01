@@ -1,7 +1,9 @@
 import ArtistList from "../components/ArtistList";
 import { performingArtists } from "../lib/primavera";
+import { useDocumentTitle } from "../lib/utils";
 
 function Lineup() {
+    useDocumentTitle("Primavera Sound 2025 Lineup - Tailor of Primavera");
     const lineupData = performingArtists();
     const artists = lineupData.map(artists => ({
         id: artists.artistSlugName,

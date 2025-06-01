@@ -1,5 +1,8 @@
+import { useDocumentTitle } from "../lib/utils";
+
 const NoPage = () => {
-    return <h1>404</h1>;
+    useDocumentTitle("Page Not Found - Tailor of Primavera");
+    return <h1>404 - Page Not Found.</h1>;
   };
   
 export default NoPage;

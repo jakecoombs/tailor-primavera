@@ -1,5 +1,6 @@
 import { redirectToSpotifyLogin } from "../auth/spotifyAuth";
 import LikedSongsAttending from "../components/LikedSongsAttending";
+import { useDocumentTitle } from "../lib/utils";
 
 function isLoggedIn() {
   const accessToken = localStorage.getItem("spotifyAccessToken");
@@ -9,6 +10,7 @@ function isLoggedIn() {
 }
 
 function Home() {
+  useDocumentTitle("Sastre de Primavera - Tailor of Primavera");
   if (!isLoggedIn()) {
     return (
       <>
