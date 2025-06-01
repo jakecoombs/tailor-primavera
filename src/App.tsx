@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
 import Callback from './pages/Callback';
+import YourArtists from './pages/YourArtists';
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="your-artists" element={<YourArtists />} />
           <Route path="callback" element={<Callback />} />
           <Route path="*" element={<NoPage />} />
         </Route>

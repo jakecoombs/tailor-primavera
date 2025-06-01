@@ -2,6 +2,7 @@
 
 import React from "react";
 import { fetchAttendingArtists } from "../lib/spotify";
+import ArtistsList from "./ArtistList";
 
 
 const YourAttendingArtists = () => {
@@ -33,19 +34,7 @@ const YourAttendingArtists = () => {
     }
     
   return (
-    <div>
-      <h2>Your Followed Artists Attending Primavera ({data.length})</h2>
-        <ul>
-            {data.map((artist: any) => (
-            <li key={artist.id}>
-                <img src={artist.images[0]?.url} alt={artist.name} width="50" />
-                <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                {artist.name}
-                </a>
-            </li>
-            ))}
-        </ul>   
-    </div>
+        <ArtistsList artists={data} />
   );
 }
 export default YourAttendingArtists;
